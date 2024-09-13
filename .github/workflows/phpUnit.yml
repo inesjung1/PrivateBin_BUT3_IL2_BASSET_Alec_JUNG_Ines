@@ -20,7 +20,7 @@ jobs:
           extensions: dom, json, libxml, mbstring, tokenizer, xml, xmlwrtier
 
       - name: Install Composer dependencies
-        run: bin/composer install --prefer-dist --no-progress --no-suggest
+        run: ${{ github.worspace }} bin/composer install --prefer-dist --no-progress --no-suggest
 
       - name: Run tests
         run: vendor/bin/phpunit tst
