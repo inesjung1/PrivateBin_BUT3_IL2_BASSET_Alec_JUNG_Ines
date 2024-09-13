@@ -22,5 +22,8 @@ jobs:
       - name: Install Composer dependencies
         run: ${{ github.worspace }}/bin/composer install --prefer-dist --no-progress --no-suggest
 
+      - name: Verify Vendor
+        run: ls ${{ github.worspace }} | grep vendor
+
       - name: Run tests
         run: ${{ github.worspace }}/vendor/bin/phpunit tst
