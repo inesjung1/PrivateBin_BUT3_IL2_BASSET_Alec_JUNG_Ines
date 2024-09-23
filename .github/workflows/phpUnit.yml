@@ -37,3 +37,6 @@ jobs:
 
       - name: Tests completed
         run: echo "Job status is '${{ job.status }}'"
+
+      - name: ✅ Exporting coverage to action summary
+        run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
