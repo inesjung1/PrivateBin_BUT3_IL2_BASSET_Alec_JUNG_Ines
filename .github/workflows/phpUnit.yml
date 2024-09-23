@@ -12,12 +12,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.1'
-          extensions: dom, json, libxml, mbstring, tokenizer, xml, xmlwrtier
       
       - name: Installing dependencies
         uses: php-actions/composer@v6
@@ -25,6 +19,7 @@ jobs:
       - name: Running tests
         uses: php-actions/phpunit@v3
         with:
+          version: '9.6.11' 
           php_extensions: gd sqlite3 dom json libxml mbstring tokenizer xml xmlwriter zip
       - name: Tests completed
         run: echo "Job status is '${{ job.status }}'"
