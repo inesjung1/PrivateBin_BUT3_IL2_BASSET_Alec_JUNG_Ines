@@ -39,8 +39,10 @@ jobs:
       - name: Running PHPMD
         uses: php-actions/phpmd@v1
         with:
-          path: lib
+          path: lib/
           output: text
+          ruleset: cleancode,codesize,controversial,design,naming,unusedcode
+          format: xml
 
       - name: Running PHPStan
         uses: php-actions/phpstan@v3
