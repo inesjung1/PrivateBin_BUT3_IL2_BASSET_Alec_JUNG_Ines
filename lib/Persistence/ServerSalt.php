@@ -10,10 +10,6 @@
  * @version   1.5.1
  */
 
-namespace PrivateBin\Persistence;
-
-use PrivateBin\Data\AbstractData;
-
 /**
  * ServerSalt
  *
@@ -24,6 +20,12 @@ use PrivateBin\Data\AbstractData;
  * - to generate unique VizHash in discussions (which are not reproductible across PrivateBin servers)
  * - to generate unique deletion token (which are not re-usable across PrivateBin servers)
  */
+
+namespace PrivateBin\Persistence;
+
+use PrivateBin\Data\AbstractData;
+
+
 class ServerSalt extends AbstractPersistence
 {
     /**
@@ -33,7 +35,7 @@ class ServerSalt extends AbstractPersistence
      * @static
      * @var    string
      */
-    private static $_salt = '';
+    private static $salt = '';
 
     /**
      * generate a large random hexadecimal salt
@@ -56,20 +58,20 @@ class ServerSalt extends AbstractPersistence
      */
     public static function get()
     {
-        if (strlen(self::$_salt)) {
-            return self::$_salt;
+        if (strlen(self::$salt)) {
+            return self::$salt;
         }
 
         $salt = self::$_store->getValue('salt');
         if ($salt) {
-            self::$_salt = $salt;
+            self::$salt = $salt;
         } else {
-            self::$_salt = self::generate();
-            if (!self::$_store->setValue(self::$_salt, 'salt')) {
+            self::$salt = self::generate();
+            if (!self::$_store->setValue(self::$salt, 'salt')) {
                 error_log('failed to store the server salt, delete tokens, traffic limiter and user icons won\'t work');
             }
         }
-        return self::$_salt;
+        return self::$salt;
     }
 
     /**
@@ -81,7 +83,7 @@ class ServerSalt extends AbstractPersistence
      */
     public static function setStore(AbstractData $store)
     {
-        self::$_salt = '';
+        self::$salt = '';
         parent::setStore($store);
     }
 }

@@ -10,15 +10,17 @@
  * @version   1.5.1
  */
 
-namespace PrivateBin\Persistence;
-
-use PrivateBin\Configuration;
-
 /**
  * PurgeLimiter
  *
  * Handles purge limiting, so purging is not triggered too frequently.
  */
+
+namespace PrivateBin\Persistence;
+
+use PrivateBin\Configuration;
+
+
 class PurgeLimiter extends AbstractPersistence
 {
     /**
@@ -28,7 +30,7 @@ class PurgeLimiter extends AbstractPersistence
      * @static
      * @var    int
      */
-    private static $_limit = 300;
+    private static $limit = 300;
 
     /**
      * set the time limit in seconds
@@ -39,7 +41,7 @@ class PurgeLimiter extends AbstractPersistence
      */
     public static function setLimit($limit)
     {
-        self::$_limit = $limit;
+        self::$limit = $limit;
     }
 
     /**
@@ -64,16 +66,16 @@ class PurgeLimiter extends AbstractPersistence
     public static function canPurge()
     {
         // disable limits if set to less then 1
-        if (self::$_limit < 1) {
+        if (self::$limit < 1) {
             return true;
         }
 
         $now  = time();
-        $pl   = (int) self::$_store->getValue('purge_limiter');
-        if ($pl + self::$_limit >= $now) {
+        $pl   = (int) self::$_store->getValue('purgelimiter');
+        if ($pl + self::$limit >= $now) {
             return false;
         }
-        $hasStored = self::$_store->setValue((string) $now, 'purge_limiter');
+        $hasStored = self::$_store->setValue((string) $now, 'purgelimiter');
         if (!$hasStored) {
             error_log('failed to store the purge limiter, skipping purge cycle to avoid getting stuck in a purge loop');
         }
