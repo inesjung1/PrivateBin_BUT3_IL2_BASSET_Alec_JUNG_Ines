@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PrivateBin
  *
@@ -9,7 +10,6 @@
  * @license   https://www.opensource.org/licenses/zlib-license.php The zlib/libpng License
  * @version   1.5.1
  */
-
 /**
  * ServerSalt
  *
@@ -20,7 +20,6 @@
  * - to generate unique VizHash in discussions (which are not reproductible across PrivateBin servers)
  * - to generate unique deletion token (which are not re-usable across PrivateBin servers)
  */
-
 namespace PrivateBin\Persistence;
 
 use PrivateBin\Data\AbstractData;

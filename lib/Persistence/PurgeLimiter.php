@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PrivateBin
  *
@@ -9,13 +10,11 @@
  * @license   https://www.opensource.org/licenses/zlib-license.php The zlib/libpng License
  * @version   1.5.1
  */
-
 /**
  * PurgeLimiter
  *
  * Handles purge limiting, so purging is not triggered too frequently.
  */
-
 namespace PrivateBin\Persistence;
 
 use PrivateBin\Configuration;
