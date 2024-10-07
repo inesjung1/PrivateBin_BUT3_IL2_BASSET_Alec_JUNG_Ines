@@ -34,7 +34,7 @@ jobs:
           ignore: vendor
           path: lib
           extensions: php
-          # args: --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1
+          args: --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1
 
       - name: Running PHPMD
         uses: php-actions/phpmd@v1
@@ -52,6 +52,7 @@ jobs:
 
       - name: Uploading coverage
         uses: irongut/CodeCoverageSummary@v1.3.0
+        if: always()
         with:
           filename: log/cobertura.xml
           badge: true
