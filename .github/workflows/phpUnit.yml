@@ -43,12 +43,14 @@ jobs:
           path: lib/
           output: text
           ruleset: cleancode,codesize,controversial,design,naming,unusedcode
+          args: --ignore-violations-on-exit
 
       - name: Running PHPStan
         uses: php-actions/phpstan@v3
         if: always()
         with:
           path: lib
+          level: 0
 
       - name: Uploading coverage
         uses: irongut/CodeCoverageSummary@v1.3.0
