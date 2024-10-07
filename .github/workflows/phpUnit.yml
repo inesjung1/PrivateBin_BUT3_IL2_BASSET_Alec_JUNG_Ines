@@ -1,4 +1,3 @@
-
 name: PHP CI
 
 on:
@@ -29,15 +28,17 @@ jobs:
 
       - name: Running PHPCS
         uses: php-actions/phpcs@v1
+        if: always()
         with:
           standard: PSR12
           ignore: vendor
           path: lib
           extensions: php
-          args: --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1
+          # args: --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1
 
       - name: Running PHPMD
         uses: php-actions/phpmd@v1
+        if: always()
         with:
           path: lib/
           output: text
@@ -45,6 +46,7 @@ jobs:
 
       - name: Running PHPStan
         uses: php-actions/phpstan@v3
+        if: always()
         with:
           path: lib
 
