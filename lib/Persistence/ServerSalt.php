@@ -25,7 +25,6 @@ namespace PrivateBin\Persistence;
 
 use PrivateBin\Data\AbstractData;
 
-
 class ServerSalt extends AbstractPersistence
 {
     /**

@@ -20,7 +20,6 @@ namespace PrivateBin\Persistence;
 
 use PrivateBin\Configuration;
 
-
 class PurgeLimiter extends AbstractPersistence
 {
     /**
