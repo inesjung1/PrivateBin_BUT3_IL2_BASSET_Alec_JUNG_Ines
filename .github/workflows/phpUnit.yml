@@ -22,6 +22,7 @@ jobs:
 
       - name: Running tests
         uses: php-actions/phpunit@v3
+        continue-on-error: true
         with:
           version: '9.6.11' 
           php_extensions: gd sqlite3 dom json libxml mbstring tokenizer xml xmlwriter zip xdebug

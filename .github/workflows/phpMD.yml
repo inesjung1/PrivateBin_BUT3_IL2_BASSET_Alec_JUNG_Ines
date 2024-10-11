@@ -28,7 +28,7 @@ jobs:
           output-file: phpmd.txt
 
       - name: Upload PHPMD report
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: phpmd-report
           path: phpmd.txt

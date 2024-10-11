@@ -40,6 +40,6 @@ jobs:
           fail-on-error: true
 
       - name: Upload successful tests
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: successful-tests
