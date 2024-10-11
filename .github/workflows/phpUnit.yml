@@ -1,4 +1,5 @@
 name: PHP CI
+run-name: ${{ github.repository }} CI PHPUnit
 
 on:
   push:
@@ -19,48 +20,21 @@ jobs:
       - name: Installing dependencies
         uses: php-actions/composer@v6
 
-      # - name: Running tests
-      #   uses: php-actions/phpunit@v3
-      #   with:
-      #     version: '9.6.11' 
-      #     php_extensions: gd sqlite3 dom json libxml mbstring tokenizer xml xmlwriter zip xdebug
-      #     configuration: phpunit.xml
+      - name: Running tests
+        uses: php-actions/phpunit@v3
+        with:
+          version: '9.6.11' 
+          php_extensions: gd sqlite3 dom json libxml mbstring tokenizer xml xmlwriter zip xdebug
+          configuration: phpunit.xml
 
-      - name: Running PHPCS
-        uses: php-actions/phpcs@v1
+      - name: Uploading coverage
+        uses: irongut/CodeCoverageSummary@v1.3.0
         if: always()
         with:
-          standard: PSR12
-          ignore: vendor
-          path: lib
-          extensions: php
-          args: --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1
-
-      - name: Running PHPMD
-        uses: php-actions/phpmd@v1
-        if: always()
-        with:
-          path: lib/
-          output: text
-          ruleset: cleancode,codesize,controversial,design,naming,unusedcode
-          args: --ignore-violations-on-exit
-
-      - name: Running PHPStan
-        uses: php-actions/phpstan@v3
-        if: always()
-        continue-on-error: true
-        with:
-          path: lib
-          level: 0
-
-      # - name: Uploading coverage
-      #   uses: irongut/CodeCoverageSummary@v1.3.0
-      #   if: always()
-      #   with:
-      #     filename: log/cobertura.xml
-      #     badge: true
-      #     format: markdown
-      #     output: both
+          filename: log/cobertura.xml
+          badge: true
+          format: markdown
+          output: both
 
       - name: Tests completed
         run: echo "Job status is '${{ job.status }}'"

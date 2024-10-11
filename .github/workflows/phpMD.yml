@@ -1,0 +1,34 @@
+name: PHPMD CI
+run-name: ${{ github.repository }} CI PHPMD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Installing dependencies
+        uses: php-actions/composer@v6
+
+      - name: Running PHPMD
+        uses: php-actions/phpmd@v1
+        continue-on-error: true
+        with:
+          path: lib/
+          output: text
+          ruleset: cleancode,codesize,controversial,design,naming,unusedcode
+          args: --ignore-violations-on-exit
+          output-file: phpmd.txt
+
+      - name: Upload PHPMD report
+        uses: actions/upload-artifact@v2
+        with:
+          name: phpmd-report
+          path: phpmd.txt

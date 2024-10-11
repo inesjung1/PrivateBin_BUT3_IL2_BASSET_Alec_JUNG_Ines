@@ -1,0 +1,35 @@
+name: PHPCS CI
+run-name: ${{ github.repository }} CI PHPCS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Installing dependencies
+        uses: php-actions/composer@v6
+
+      - name: Running PHPCS
+        uses: php-actions/phpcs@v1
+        continue-on-error: true
+        with:
+          standard: PSR12
+          ignore: vendor
+          path: lib
+          extensions: php
+          args: --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1
+          report_file: phpcs.txt
+
+      - name: Upload PHPCS report
+        uses: actions/upload-artifact@v2
+        with:
+          name: phpcs-report
+          path: phpcs.txt

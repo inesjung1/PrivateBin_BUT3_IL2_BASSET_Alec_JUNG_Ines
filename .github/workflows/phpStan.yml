@@ -1,0 +1,30 @@
+name: PHPStan CI
+run-name: ${{ github.repository }} CI PHPStan
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Installing dependencies
+        uses: php-actions/composer@v6
+
+      - name: Running PHPStan
+        uses: php-actions/phpstan@v3
+        continue-on-error: true
+        with:
+          path: lib
+          error_format: raw
+
+      - name: Upload PHPStan report
+        uses: actions/upload-artifact@v2
+        with:
+          name: phpstan-report

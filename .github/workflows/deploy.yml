@@ -1,0 +1,45 @@
+name: Deploy
+run-name: ${{ github.repository }} CD Deploy
+
+on:
+  workflow_run:
+    workflows: [PHP CI]
+    types: [completed]
+
+jobs:
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Upload failed tests
+        uses: actions/upload-artifact@v2
+        with:
+          name: failed-tests
+
+  on-success:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy code
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: .
+          remote-dir: /www
+          exclude: .git*
+          fail-on-error: true
+
+      - name: Upload successful tests
+        uses: actions/upload-artifact@v2
+        with:
+          name: successful-tests
