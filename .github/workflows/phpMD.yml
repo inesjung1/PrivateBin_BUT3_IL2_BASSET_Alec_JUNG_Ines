@@ -25,7 +25,7 @@ jobs:
           output: text
           ruleset: cleancode,codesize,controversial,design,naming,unusedcode
           args: --ignore-violations-on-exit
-          output-file: phpmd.txt
+          reportfile: phpmd.txt
 
       - name: Upload PHPMD report
         uses: actions/upload-artifact@v4

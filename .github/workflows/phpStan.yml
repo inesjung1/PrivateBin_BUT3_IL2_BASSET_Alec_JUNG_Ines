@@ -23,8 +23,3 @@ jobs:
         with:
           path: lib
           error_format: raw
-
-      - name: Upload PHPStan report
-        uses: actions/upload-artifact@v4
-        with:
-          name: phpstan-report
