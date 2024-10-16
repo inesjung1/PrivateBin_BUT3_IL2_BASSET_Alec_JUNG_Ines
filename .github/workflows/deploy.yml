@@ -36,8 +36,3 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: /www/
           exclude: .git*
-
-      - name: Upload successful tests
-        uses: actions/upload-artifact@v4
-        with:
-          name: successful-tests
